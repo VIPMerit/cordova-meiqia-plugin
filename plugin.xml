@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="com.hackplan.meiqia" version="0.0.1">
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="com.hackplan.meiqia" version="0.0.2">
   <name>Cordova meiqia Plugin</name>
   <description>meiqia</description>
   <license>Apache 2.0</license>
