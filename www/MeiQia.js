@@ -1,7 +1,7 @@
 var MeiQia = function(){};
 
-MeiQia.prototype.meiQia = function(success, failure, number){
-    cordova.exec(success, failure, "MeiQia", "meiQia", [number]);
+MeiQia.prototype.meiQia = function(success, failure, realname, mobile){
+    cordova.exec(success, failure, "MeiQia", "meiQia", [realname, mobile]);
 };
 
 //Plug in to Cordova
