@@ -23,4 +23,35 @@
       <source-file src="src/android/MeiQia.java" target-dir="src/com/hackplan/meiqia" />
       <source-file src="src/android/libs/mechat_1.1.0.jar" target-dir="libs" />
   </platform>
+
+  <platform name="ios">
+    <config-file target="config.xml" parent="/*">
+      <feature name="MeiQia">
+        <param name="ios-package" value="CDVMC"/>
+      </feature>
+    </config-file>
+
+    <header-file src="src/ios/MCAudioMessage.h" />
+    <header-file src="src/ios/MCChatViewController.h" />
+    <header-file src="src/ios/MCCore.h" />
+    <header-file src="src/ios/MCDefination.h" />
+    <header-file src="src/ios/MCEvent.h" />
+    <header-file src="src/ios/MCImageMessage.h" />
+    <header-file src="src/ios/MCMessage.h" />
+    <header-file src="src/ios/MCService.h" />
+    <header-file src="src/ios/MCTextMessage.h" />
+    <header-file src="src/ios/MCDelegate.h" />
+
+    <header-file src="src/ios/CDVMC.h" />
+    <source-file src="src/ios/CDVMC.m" />
+
+    <source-file src="src/ios/MeChat.a" framework="true" />
+
+    <framework src="CoreTelephony.framework" />
+    <framework src="AudioToolbox.framework" />
+    <framework src="Accelerate.framework" />
+    
+    <resource-file src="src/ios/MeChatSDK.bundle"/>
+  </platform>
+
 </plugin>
