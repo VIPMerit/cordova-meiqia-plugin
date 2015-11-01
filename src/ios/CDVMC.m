@@ -26,7 +26,15 @@
     CDVMCHideViewController* parentController = [[CDVMCHideViewController alloc] init];
     UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:parentController];
     
-    [navController pushViewController:[MCCore createChatViewController] animated:YES];
+    MCChatViewController* chatController = [MCCore createChatViewController];
+    
+    // custom navigationBar color
+    navController.navigationBar.translucent = NO;
+    navController.navigationBar.barTintColor = [UIColor colorWithRed:0.94 green:0.35 blue:0.31 alpha:1.0];;
+    navController.navigationBar.barStyle = UIStatusBarStyleLightContent;
+    chatController.navigationBarTintColor = [UIColor whiteColor];
+    
+    [navController pushViewController:chatController animated:YES];
     [self.viewController presentViewController:navController animated:YES completion:nil];
 }
 
