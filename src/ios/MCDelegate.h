@@ -71,6 +71,17 @@
 -(void)serviceInputting;
 @end
 
+//推送相关代理
+@protocol MCPushDelegate <NSObject>
+
+/**
+ * 收到推送消息
+ * @param contents 客服发送的消息内容
+ */
+-(void)receivePush:(NSArray*)contents;
+
+@end
+
 @protocol MCAudioRecordDelegate <NSObject>
 @optional
 /**

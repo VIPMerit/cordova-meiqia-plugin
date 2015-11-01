@@ -1,6 +1,6 @@
 //
 //  MCCore.h
-//  MeChatSDK 当前版本: v1.2.0
+//  MeChatSDK 当前版本: v1.2.1
 //
 //  开发文档链接：https://meiqia.com/docs/sdk/ios.html
 //
@@ -10,11 +10,8 @@
 //
 //  更早更新日志，请查看：https://meiqia.com/sdk/index.html
 //
-//  v1.2.0 2015年8月4日
-//      该版本仅更新UI，细节有：
-//      • 默认不显示事件
-//      • 消息气泡新增客服头像
-//      • 新增事件提示文本
+//  v1.2.1 2015年9月11日
+//      【添加】用户离线时接收客服消息的函数
 
 
 #import <Foundation/Foundation.h>
@@ -92,6 +89,13 @@
  * @warning MCChatViewController已经调用了该函数。如果使用了MCChatViewController，请勿重复使用该函数。
  */
 +(void)letUserOffOnlineIsAsynchronousWithDeviceToken:(NSString*)deviceToken delegate:(id<MCConnectDelegate>)delegate;
+
+/**
+ * 接收推送消息
+ * @param appUserId 在函数 addUserInfo:addOtherInfo: 中上传的用户id。没有可以为nil
+ * @param delegate 收到推送消息的代理函数：-(void)receivePush:
+ */
++(void)receivePushWithAppUserId:(NSString*)appUserId delegate:(id<MCPushDelegate>)delegate;
 
 /**
  * 获得历史消息。如length=10，startIndex=30，那么获取到的就是第31-40的10条消息
