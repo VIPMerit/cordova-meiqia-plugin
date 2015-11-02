@@ -1,17 +1,17 @@
 //
 //  MCCore.h
-//  MeChatSDK 当前版本: v1.2.1
+//  MeChatSDK 当前版本: v1.2.3
 //
 //  开发文档链接：https://meiqia.com/docs/sdk/ios.html
 //
-//  Copyright (c) 2014年 MeChat. All rights reserved.
+//  Copyright (c) 2015年 MeChat. All rights reserved.
 //
 //  更新日志
 //
 //  更早更新日志，请查看：https://meiqia.com/sdk/index.html
 //
-//  v1.2.1 2015年9月11日
-//      【添加】用户离线时接收客服消息的函数
+//  v1.2.3 2015年11月2日
+//      【修复】ios9下输入栏无法多行输入的bug
 
 
 #import <Foundation/Foundation.h>
