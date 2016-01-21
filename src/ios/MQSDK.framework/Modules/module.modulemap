@@ -1,0 +1,6 @@
+framework module MQSDK {
+  umbrella header "MQSDK.h"
+
+  export *
+  module * { export * }
+}

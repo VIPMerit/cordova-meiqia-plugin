@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="com.hackplan.meiqia" version="0.0.2">
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="com.hackplan.meiqia" version="0.2.0">
   <name>Cordova meiqia Plugin</name>
   <description>meiqia</description>
   <license>Apache 2.0</license>
@@ -31,27 +31,18 @@
       </feature>
     </config-file>
 
-    <header-file src="src/ios/MCAudioMessage.h" />
-    <header-file src="src/ios/MCChatViewController.h" />
-    <header-file src="src/ios/MCCore.h" />
-    <header-file src="src/ios/MCDefination.h" />
-    <header-file src="src/ios/MCEvent.h" />
-    <header-file src="src/ios/MCImageMessage.h" />
-    <header-file src="src/ios/MCMessage.h" />
-    <header-file src="src/ios/MCService.h" />
-    <header-file src="src/ios/MCTextMessage.h" />
-    <header-file src="src/ios/MCDelegate.h" />
-
     <header-file src="src/ios/CDVMC.h" />
     <source-file src="src/ios/CDVMC.m" />
 
-    <source-file src="src/ios/MeChat.a" framework="true" />
+    <framework src="src/ios/MQSDK.framework" custom="true" />
+    <framework src="src/ios/MeiQiaSDK.framework" custom="true" />
+    
+    <resource-file src="src/ios/MQChatViewAsset.bundle" />
 
     <framework src="CoreTelephony.framework" />
-    <framework src="AudioToolbox.framework" />
-    <framework src="Accelerate.framework" />
-    
-    <resource-file src="src/ios/MeChatSDK.bundle"/>
+    <framework src="AVFoundation.framework" />
+    <framework src="SystemConfiguration.framework" />
+    <framework src="MobileCoreServices.framework" />
   </platform>
 
 </plugin>
