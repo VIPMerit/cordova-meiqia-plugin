@@ -16,7 +16,7 @@
     NSString *mobile = command.arguments[1];
     
     NSDictionary* userInfo =  @{
-                                @"realName"     : realname,
+                                @"name"     : realname,
                                 @"tel"       : mobile,
                                 };
 
@@ -27,6 +27,9 @@
     
     MQChatViewManager *chatViewManager = [[MQChatViewManager alloc] init];
     [chatViewManager enableSyncServerMessage:true];
+    [chatViewManager setNavigationBarTintColor:[UIColor whiteColor]];
+    [chatViewManager setNavigationBarColor:[UIColor colorWithRed:0.94 green:0.35 blue:0.31 alpha:1.0]];
+    [chatViewManager setNavigationBarStyle:UIStatusBarStyleLightContent];
     [chatViewManager pushMQChatViewControllerInViewController:self.viewController];
 }
 

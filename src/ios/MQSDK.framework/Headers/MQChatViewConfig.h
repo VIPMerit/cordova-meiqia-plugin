@@ -66,6 +66,7 @@ extern NSString * const MQChatTableViewShouldRefresh;
 @property (nonatomic, copy) UIColor *redirectAgentNameColor;
 @property (nonatomic, copy) UIColor *navBarTintColor;
 @property (nonatomic, copy) UIColor *navBarColor;
+@property (nonatomic, assign) UIBarStyle navBarStyle;
 @property (nonatomic, copy) UIColor *pullRefreshColor;
 
 @property (nonatomic, strong) UIImage *incomingDefaultAvatarImage;

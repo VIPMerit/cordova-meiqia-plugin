@@ -220,6 +220,14 @@
  */
 - (void)setNavigationBarColor:(UIColor *)barColor;
 
+
+/**
+ * 设置导航栏的风格；
+ * @param barStyle 导航栏风格
+ */
+- (void)setNavigationBarStyle:(UIStatusBarStyle)barStyle;
+
+
 /**
  *  设置导航栏右键的图片
  *
