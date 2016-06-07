@@ -43,6 +43,7 @@
     <framework src="AVFoundation.framework" />
     <framework src="SystemConfiguration.framework" />
     <framework src="MobileCoreServices.framework" />
+    <framework src="libicucore.tbd" />
   </platform>
 
 </plugin>
