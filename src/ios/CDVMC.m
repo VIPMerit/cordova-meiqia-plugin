@@ -26,9 +26,9 @@
     }];
     
     MQChatViewManager *chatViewManager = [[MQChatViewManager alloc] init];
-    [chatViewManager enableSyncServerMessage:true];
+    [chatViewManager enableSyncServerMessage:false];
     [chatViewManager setNavigationBarTintColor:[UIColor whiteColor]];
-    [chatViewManager setNavigationBarColor:[UIColor colorWithRed:0.94 green:0.35 blue:0.31 alpha:1.0]];
+    [chatViewManager setNavigationBarColor: [UIColor colorWithRed:0.941 green:0.353 blue:0.314 alpha:1.0]];
     [chatViewManager setNavigationBarStyle:UIStatusBarStyleLightContent];
     [chatViewManager pushMQChatViewControllerInViewController:self.viewController];
 }
