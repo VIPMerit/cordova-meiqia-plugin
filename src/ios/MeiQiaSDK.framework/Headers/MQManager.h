@@ -11,12 +11,15 @@
 #import "MQMessage.h"
 #import "MQDefinition.h"
 #import "MQAgent.h"
+#import "MQEnterprise.h"
+
+#define MQSDKVersion @"3.2.2"
 
 @protocol MQManagerDelegate <NSObject>
 
 /**
- *  收到了客服消息
- *  @param message 客服消息
+ *  收到了消息
+ *  @param message 消息
  */
 - (void)didReceiveMQMessages:(NSArray<MQMessage *> *)message;
 
@@ -66,15 +69,25 @@
  *
  * @param agentId                指定分配的客服id，可为空
  * @param agentGroupId           指定分配的客服组id，可为空（如果agentId和agentGroupId均未空，则随机分配一个客服）
+ * @param scheduleRule           指定分配客服/客服组，该客服/客服组不在线，如何转接的接口，默认转接给企业随机一个客服
  * @warning 该接口需要在顾客上线前进行设置，设置后指定分配客服将会在顾客上线时生效
  */
 + (void)setScheduledAgentWithAgentId:(NSString *)agentId
-                        agentGroupId:(NSString *)agentGroupId;
+                        agentGroupId:(NSString *)agentGroupId
+                        scheduleRule:(MQScheduleRules)scheduleRule;
+
+/**
+ * 设置不指定分配的客服或客服组。
+ *
+*/
++ (void)setNotScheduledAgentWithAgentId:(NSString *)agentId;
 
 /**
  * 开发者自定义当前顾客的信息，用于展示给客服。
  *
  * @param clientInfo 顾客的信息
+ * @warning 需要顾客先上线，再上传顾客信息。如果开发者使用美洽的开源界面，不需要调用此接口，使用 MQChatViewManager 中的 setClientInfo 配置用户自定义信息即可。
+ * @warning 如果开发者使用「开源聊天界面」的接口来上线，则需要监听 MQ_CLIENT_ONLINE_SUCCESS_NOTIFICATION「顾客成功上线」的广播（见 MQDefinition.h），再调用此接口
  */
 + (void)setClientInfo:(NSDictionary<NSString *, NSString *>*)clientInfo
            completion:(void (^)(BOOL success, NSError *error))completion;
@@ -84,9 +97,10 @@
  *
  *  @param avatarImage 头像Image
  *  @param completion  设置头像图片的回调
+ *  @warning 需要顾客上线之后，再调用此接口，具体请监听 MQ_CLIENT_ONLINE_SUCCESS_NOTIFICATION「顾客成功上线」的广播，具体见 MQDefinition.h
  */
 + (void)setClientAvatar:(UIImage *)avatarImage
-             completion:(void (^)(BOOL success, NSError *error))completion;
+             completion:(void (^)(NSString *avatarUrl, NSError *error))completion;
 
 /**
  * 让当前的client上线。请求成功后，该顾客将会出现在客服的对话列表中。
@@ -96,6 +110,7 @@
  * @param messages 当前对话的消息
  * @param receiveMessageDelegate 接收消息的委托代理
  * @warning 需要初始化后才能调用；
+ * @warning 建议在顾客点击「在线客服」按钮时，再调用该接口；不建议在 App 启动时调用该接口，这样会产生大量无效对话；
  */
 + (void)setCurrentClientOnlineWithSuccess:(void (^)(MQClientOnlineResult result, MQAgent *agent, NSArray<MQMessage *> *messages))success
                                   failure:(void (^)(NSError *error))failure
@@ -110,6 +125,7 @@
  * @param messages 当前对话的消息
  * @param receiveMessageDelegate 接收消息的委托代理
  * @warning 需要初始化后才能调用；
+ * @warning 建议在顾客点击「在线客服」按钮时，再调用该接口；不建议在 App 启动时调用该接口，这样会产生大量无效对话；
  */
 + (void)setClientOnlineWithClientId:(NSString *)clientId
                             success:(void (^)(MQClientOnlineResult result, MQAgent *agent, NSArray<MQMessage *> *messages))success
@@ -126,6 +142,7 @@
  * @param receiveMessageDelegate 接收消息的委托代理
  * @warning 需要初始化后才能调
  * @warning customizedId不能为自增长，否则有安全隐患，建议开发者使用setClientOnlineWithClientId接口进行登录
+ * @warning 建议在顾客点击「在线客服」按钮时，再调用该接口；不建议在 App 启动时调用该接口，这样会产生大量无效对话；
  */
 + (void)setClientOnlineWithCustomizedId:(NSString *)customizedId
                                 success:(void (^)(MQClientOnlineResult result, MQAgent *agent, NSArray<MQMessage *> *messages))success
@@ -172,7 +189,7 @@
 + (MQAgent *)getCurrentAgent;
 
 /**
- * 从服务端获取历史消息
+ * 从服务端获取某日期之前的历史消息
  *
  * @param msgDate        获取该日期之前的历史消息，注：该日期是UTC格式的;
  * @param messagesNumber 获取消息的数量
@@ -207,6 +224,14 @@
 + (void)downloadMediaWithUrlString:(NSString *)urlString
                           progress:(void (^)(float progress))progressBlock
                         completion:(void (^)(NSData *mediaData, NSError *error))completion;
+
+
+/**
+ *  取消下载
+ *
+ *  @param urlString     url
+ */
++ (void)cancelDownloadForUrl:(NSString *)urlString;
 
 /**
  *  清除所有美洽的多媒体缓存
@@ -260,10 +285,16 @@
 
 /**
  * 是否修改某条消息为未读
- * @param messageId 被修改的消息id
+ * @param messageIds 被修改的消息id数组
  * @param isRead   该消息是否已读
  */
-+ (void)updateMessage:(NSString *)messageId toReadStatus:(BOOL)isRead;
++ (void)updateMessageIds:(NSArray *)messageIds
+         toReadStatus:(BOOL)isRead;
+
+/**
+ * 将所有消息标记为已读
+ */
++ (void)markAllMessagesAsRead;
 
 /**
  *  将数据库中某个message删除
@@ -272,6 +303,11 @@
  */
 + (void)removeMessageInDatabaseWithId:(NSString *)messageId
                            completion:(void (^)(BOOL success, NSError *error))completion;
+
+/**
+ *  将 SDK 本地数据库中的消息都删除
+ */
++ (void)removeAllMessageFromDatabaseWithCompletion:(void (^)(BOOL success, NSError *error))completion;
 
 /**
  *  结束当前的对话
@@ -284,8 +320,155 @@
 + (void)endCurrentConversationWithCompletion:(void (^)(BOOL success, NSError *error))completion;
 
 /**
+ *  顾客给当前的对话进行评价
+ *
+ *  @param evaluation 服务级别
+ *  @param comment    评价留言
+ *  @param completion 结果回调
+ */
++ (void)evaluateCurrentConversationWithEvaluation:(MQConversationEvaluation)evaluation
+                                          comment:(NSString *)comment
+                                       completion:(void (^)(BOOL success, NSError *error))completion;
+
+/**
+ *  缓存当前的输入文字
+ *
+ *  @param inputtingText 输入文字
+ */
++ (void)setCurrentInputtingText:(NSString *)inputtingText;
+
+/**
+ *  获取缓存的输入文字
+ *
+ *  @return 输入文字
+ */
++ (NSString *)getPreviousInputtingText;
+
+/**
  * 获得当前美洽SDK的版本号
  */
 + (NSString *)getMeiQiaSDKVersion;
+
+
+/**
+ * 获得所有未读消息，包括本地和服务端的
+ */
++ (void)getUnreadMessagesWithCompletion:(void (^)(NSArray *messages, NSError *error))completion;
+
+/**
+ 获得本地未读消息
+ */
++ (NSArray *)getLocalUnreadeMessages;
+
+/**
+ * 当前用户是否被加入黑名单
+ */
++ (BOOL)isBlacklisted;
+
+
+/**
+ * 请求文件的下载地址
+ */
++ (void)clientDownloadFileWithMessageId:(NSString *)messageId
+                                      conversatioId:(NSString *)conversationId
+                                      andCompletion:(void(^)(NSString *url, NSError *error))action;
+
+/**
+ 修改或增加已保存的消息中的 accessory data 中的数据
+ 
+ @param accessoryData 字典中的数据必须是基本数据和字符串
+ */
++ (void)updateMessageWithId:(NSString *)messageId forAccessoryData:(NSDictionary *)accessoryData;
+
+/**
+ 对机器人的回答做评价
+ @param messageId 消息 id
+ */
++ (void)evaluateBotMessage:(NSString *)messageId
+                  isUseful:(BOOL)isUseful
+                completion:(void (^)(BOOL success, NSString *text, NSError *error))completion;
+
+/**
+ 强制转人工
+ */
++ (void)forceRedirectHumanAgentWithSuccess:(void (^)(MQClientOnlineResult result, MQAgent *agent, NSArray<MQMessage *> *messages))success
+                                   failure:(void (^)(NSError *error))failure
+                    receiveMessageDelegate:(id<MQManagerDelegate>)receiveMessageDelegate;
+
+/**
+ 转换 emoji 别名为 Unicode
+ */
++ (NSString *)convertToUnicodeWithEmojiAlias:(NSString *)text;
+
+/**
+ 获取当前的客服 id
+ */
++ (NSString *)getCurrentAgentId;
+
+/**
+ 获取当前的客服 type: agent | admin | robot
+ */
++ (NSString *)getCurrentAgentType;
+
+/**
+获取当前企业的配置信息
+ */
+
++ (void)getEnterpriseConfigDataComplete:(void(^)(MQEnterprise *, NSError *))action;
+
+/**
+ 开始显示聊天界面，如果自定义聊天界面，在聊天界面出现的时候调用，通知 SDK 进行初始化
+ */
++ (void)didStartChat;
+
+/**
+ 聊天结束，如果自定义聊天界面，在聊天界面消失的时候嗲用，通知 SDK 进行清理工作
+ */
++ (void)didEndChat;
+
+/* 获取客服邀请评价显示的文案
+ */
++ (void)getEvaluationPromtTextComplete:(void(^)(NSString *, NSError *))action;
+
+/**
+ 获取是否显示强制转接人工按钮
+ */
++ (void)getIsShowRedirectHumanButtonComplete:(void(^)(BOOL, NSError *))action;
+
+/**
+ 获取留言表单引导文案
+ */
++ (void)getMessageFormIntroComplete:(void(^)(NSString *, NSError *))action;
+
+/**
+ *  提交留言表单
+ *
+ *  @param message 留言消息
+ *  @param images 图片数组
+ *  @param clientInfo 顾客的信息
+ *  @param completion  提交留言表单的回调
+ */
++ (void)submitMessageFormWithMessage:(NSString *)message
+                              images:(NSArray *)images
+                          clientInfo:(NSDictionary<NSString *, NSString *>*)clientInfo
+                          completion:(void (^)(BOOL success, NSError *error))completion;
+
+/**
+    切换本地用户为指定的自定义 id 用户, 回调的 clientId 如果为 nil 的话表示刷新失败，或者该用户不存在。
+ */
++ (void)refreshLocalClientWithCustomizedId:(NSString *)customizedId complete:(void(^)(NSString *clientId))action;
+
+/**
+ 获取当前用户在等待队列的位置
+ */
++ (void)getClientQueuePositionComplete:(void (^)(NSInteger position, NSError *error))action;
+
+/**
+ 获取用户在等待队列中的位置，为 0 则表示没有在等待队列
+ */
++ (int)waitingInQueuePosition;
+
+
++ (NSError *)checkGlobalError;
 
 @end

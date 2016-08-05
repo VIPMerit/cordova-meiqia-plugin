@@ -50,7 +50,7 @@
 
 "default_assistant"     = "美洽小助手";
 
-"no_agent_title"        = "在线客服";
+"no_agent_title"        = "留言";
 
 "no_agent_tips"         = "抱歉，现在没有客服人员在线\n你可以留下你的联系方式，我们会尽快联系你~";
 
@@ -75,3 +75,39 @@
 "microphone_denied"     = "请在系统设置中允许该App访问麦克风";
 
 "meiqia_communication_failed" = "抱歉，连接通信网络可能有问题，请更换网络试一下。";
+
+"meiqia_evaluation_sheet"     = "评价";
+
+"meiqia_redirect_sheet"     = "转人工";
+
+"file_download_file_is_expired" = "文件已过期";
+"file_download_canceld" = "已取消下载";
+"file_download_failed" = "下载失败";
+"file_download_downloading" = "下载中...";
+"file_download_complete" = "下载完成";
+"file_download_ %@ ∙ %@overdue" = "%@ ∙ %@ 小时后过期";
+
+"message_tips_send_message_fail_listed_in_black_list" = "对不起，当前客服系统暂时无法使用。";
+
+"message_tips_online_failed_listed_in_black_list" = "对不起，当前客服系统暂时无法使用。";
+
+"reply_tip_text"        = "抱歉，当前没有客服在线，您可以给我们 留言";
+
+"bot_redirect_tip_text"  = "很抱歉您不满意机器人的回答，您可以尝试 转人工";
+
+"bot_manual_redirect_tip_text" = "您的问题如果需要人工支持，可以 转人工";
+
+"cannot_text_client_is_onlining"  = "正在为您分配客服，请稍后重发。";
+
+"send_to_fast"  = "您发送的太快啦，请休息一下吧~";"leave_a_message" = "留言";
+"submit" = "提交";
+"leave_a_message_placeholder" = "请输入你的留言";
+"param_not_allow_null" = "%@ 不允许为空";
+"submit_failure" = "提交失败";
+"add_picture" = "添加图片";
+"tel" = "电话";
+"tel_placeholder" = "请输入你的电话";
+"email" = "邮箱";
+"email_placeholder" = "请输入你的邮箱";
+
+"wating_in_queue_tip_text" = "请稍等，前面还有%d个访客，您也可以选择给我们 留言";

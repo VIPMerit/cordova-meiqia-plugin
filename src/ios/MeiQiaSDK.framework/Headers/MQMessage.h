@@ -10,24 +10,36 @@
 #import "MQAgent.h"
 
 typedef enum : NSUInteger {
-    MQMessageActionMessage                   = 0,//普通消息 (message)
-    MQMessageActionInitConversation          = 1,//初始化对话 (init_conv)
-    MQMessageActionAgentDidCloseConversation = 2,//客服结束对话 (end_conv_agent)
-    MQMessageActionEndConversationTimeout    = 3,//对话超时，系统自动结束对话 (end_conv_timeout)
-    MQMessageActionRedirect                  = 4,//顾客被转接 (agent_redirect)
-    MQMessageActionAgentInputting            = 5 //客服正在输入 (agent_inputting)
+    MQMessageActionMessage                      = 0,   //普通消息 (message)
+    MQMessageActionInitConversation             = 1,   //初始化对话 (init_conv)
+    MQMessageActionAgentDidCloseConversation    = 2,   //客服结束对话 (end_conv_agent)
+    MQMessageActionEndConversationTimeout       = 3,   //对话超时，系统自动结束对话 (end_conv_timeout)
+    MQMessageActionRedirect                     = 4,   //顾客被转接 (agent_redirect)
+    MQMessageActionAgentInputting               = 5,   //客服正在输入 (agent_inputting)
+    MQMessageActionInviteEvaluation             = 6,   //收到客服邀请评价 (invite_evaluation)
+    MQMessageActionClientEvaluation             = 7,   //顾客评价的结果 (client_evaluation)
+    MQMessageActionTicketReply                  = 8,   //客服留言回复的消息
+    MQMessageActionAgentUpdate                  = 9,    //客服的状态发生了改变
+    MQMessageActionListedInBlackList            = 10,  //被客户加入到黑名单
+    MQMessageActionRemovedFromBlackList         = 11,  //被客户从黑名单中移除
+    MQMessageActionQueueingAdd                  = 12,  //顾客被添加到等待客服队列
+    MQMessageActionQueueingRemoved              = 13,  //顾客从等待队列中移除
 } MQMessageAction;
 
 typedef enum : NSUInteger {
     MQMessageContentTypeText                 = 0,//文字
     MQMessageContentTypeImage                = 1,//图片
-    MQMessageContentTypeVoice                = 2 //语音
+    MQMessageContentTypeVoice                = 2, //语音
+    MQMessageContentTypeFile                 = 3, //文件传输
+    MQMessageContentTypeBot                  = 4,  //机器人消息
+    MQMessageContentTypeRichText             = 5, //图文消息
 } MQMessageContentType;
 
 typedef enum : NSUInteger {
     MQMessageFromTypeClient                  = 0,//来自 顾客
     MQMessageFromTypeAgent                   = 1,//来自 客服
-    MQMessageFromTypeSystem                  = 2 //来自 系统
+    MQMessageFromTypeSystem                  = 2,//来自 系统
+    MQMessageFromTypeBot                     = 3 //来自 机器人
 } MQMessageFromType;
 
 typedef enum : NSUInteger {
@@ -90,5 +102,24 @@ typedef enum : NSUInteger {
 
 /** 消息是否已读 */
 @property (nonatomic, assign) BOOL                 isRead;
+
+///** 消息的 sub_type */
+//@property (nonatomic, copy)   NSString             *subType;
+//
+///** 机器人消息 */
+//@property (nonatomic, copy)   NSArray              *contentRobot;
+
+/** 不同的 message 类型会携带不同数据，也可能为空, 以JSON格式保存到数据库 */
+/**
+ 机器人的 accessorData
+ {
+    sub_type, content_robot, question_id, is_evaluate
+ }
+ **/
+@property (nonatomic, copy) id accessoryData;
+
++ (instancetype)createBlacklistMessageWithAction:(NSString *)action;
+
+//- (id)initMessageWithData:(NSDictionary *)data;
 
 @end
