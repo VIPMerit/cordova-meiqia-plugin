@@ -34,16 +34,19 @@
     <header-file src="src/ios/CDVMC.h" />
     <source-file src="src/ios/CDVMC.m" />
 
-    <framework src="src/ios/MQSDK.framework" custom="true" />
     <framework src="src/ios/MeiQiaSDK.framework" custom="true" />
-    
+    <framework src="src/ios/MQChatViewController" custom="true" />
+    <framework src="src/ios/MeiqiaSDKViewInterface" custom="true" />
+
     <resource-file src="src/ios/MQChatViewAsset.bundle" />
 
-    <framework src="CoreTelephony.framework" />
+
     <framework src="AVFoundation.framework" />
+    <framework src="CoreTelephony.framework" />
     <framework src="SystemConfiguration.framework" />
     <framework src="MobileCoreServices.framework" />
     <framework src="libicucore.tbd" />
+    <framework src="libsqlite3.tbd" />
   </platform>
 
 </plugin>

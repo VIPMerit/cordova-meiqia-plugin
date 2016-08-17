@@ -1,6 +1,5 @@
 #import <Cordova/CDV.h>
 #import "CDVMC.h"
-#import <MQSDK/MQChatViewManager.h>
 #import <MeiQiaSDK/MQManager.h>
 
 @interface CDVMC ()
@@ -20,17 +19,22 @@
                                 @"tel"       : mobile,
                                 };
 
+
     [MQManager initWithAppkey:@"cab23cf1f964306751d12b8eb29f8959" completion:^(NSString *clientId, NSError *error) {
-        [MQManager setClientInfo:userInfo completion:^(BOOL success, NSError *error) {
-        }];
+        if (!error) {
+            NSLog(@"美洽 SDK：初始化成功:%@", clientId);
+        } else {
+            NSLog(@"error:%@",error);
+        }
     }];
-    
+
     MQChatViewManager *chatViewManager = [[MQChatViewManager alloc] init];
     [chatViewManager enableSyncServerMessage:false];
+    [chatViewManager pushMQChatViewControllerInViewController:self];
     [chatViewManager setNavigationBarTintColor:[UIColor whiteColor]];
     [chatViewManager setNavigationBarColor: [UIColor colorWithRed:0.941 green:0.353 blue:0.314 alpha:1.0]];
     [chatViewManager setNavigationBarStyle:UIStatusBarStyleLightContent];
-    [chatViewManager pushMQChatViewControllerInViewController:self.viewController];
+    [chatViewManager setClientInfo:userInfo];
 }
 
 + (NSString*)cordovaVersion
