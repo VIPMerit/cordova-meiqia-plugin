@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="com.hackplan.meiqia" version="0.2.0">
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="com.hackplan.meiqia" version="0.3.0">
   <name>Cordova meiqia Plugin</name>
   <description>meiqia</description>
   <license>Apache 2.0</license>
@@ -37,14 +37,15 @@
     <framework src="src/ios/MeiQiaSDK.framework" custom="true" />
     <framework src="src/ios/MQChatViewController" custom="true" />
     <framework src="src/ios/MeiqiaSDKViewInterface" custom="true" />
+    <framework src="src/ios/MQMessageForm" custom="true" />
 
     <resource-file src="src/ios/MQChatViewAsset.bundle" />
-
 
     <framework src="AVFoundation.framework" />
     <framework src="CoreTelephony.framework" />
     <framework src="SystemConfiguration.framework" />
     <framework src="MobileCoreServices.framework" />
+    <framework src="QuickLook.framework" />
     <framework src="libicucore.tbd" />
     <framework src="libsqlite3.tbd" />
   </platform>
