@@ -1,6 +1,7 @@
 #import <Cordova/CDV.h>
 #import "CDVMC.h"
 #import <MeiQiaSDK/MQManager.h>
+#import "MQChatViewManager.h"
 
 @interface CDVMC ()
 @property(nonatomic, strong) CDVInvokedUrlCommand *command;
