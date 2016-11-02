@@ -31,13 +31,10 @@
       </feature>
     </config-file>
 
-    <header-file src="src/ios/CDVMC.h" />
-    <source-file src="src/ios/CDVMC.m" />
+    <header-file src="src/ios/MeiQiaCordovaPlugin.h" />
+    <source-file src="src/ios/MeiQiaCordovaPlugin.m" />
 
-    <framework src="src/ios/MeiQiaSDK.framework" custom="true" />
-    <framework src="src/ios/MeiqiaUI.framework" custom="true" />
-
-    <resource-file src="src/ios/MQChatViewAsset.bundle" />
+    <framework src="src/ios/MeiQiaSDK.framework" custom="true"/>
 
   </platform>
 
