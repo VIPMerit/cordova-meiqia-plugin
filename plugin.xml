@@ -1,33 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="com.hackplan.meiqia" version="0.3.0">
-  <name>Cordova meiqia Plugin</name>
-  <description>meiqia</description>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="cordova-plugin-meiqia" version="0.0.1">
+  <name>Cordova MeiQia Plugin</name>
+  <description>Plugin to use MeiQia with cordova apps.</description>
   <license>Apache 2.0</license>
   <keywords>cordova,meiqia,phonegap</keywords>
   <js-module src="www/MeiQia.js" name="MeiQia">
-    <clobbers target="call"/>
+    <clobbers target="MeiQia"/>
   </js-module>
-  <platform name="android">
-      <config-file target="res/xml/config.xml" parent="/*">
-          <feature name="MeiQia">
-              <param name="android-package" value="com.hackplan.meiqia.MeiQia"/>
-          </feature>
-      </config-file>
-      <config-file target="AndroidManifest.xml" parent="/*">
-          <uses-permission android:name="android.permission.INTERNET" />
-          <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-          <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-          <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-          <uses-permission android:name="android.permission.RECORD_AUDIO" />
-      </config-file>
-      <source-file src="src/android/MeiQia.java" target-dir="src/com/hackplan/meiqia" />
-      <source-file src="src/android/libs/mechat_1.1.0.jar" target-dir="libs" />
-  </platform>
-
   <platform name="ios">
     <config-file target="config.xml" parent="/*">
       <feature name="MeiQia">
-        <param name="ios-package" value="CDVMC"/>
+        <param name="ios-package" value="MeiQiaCordovaPlugin" onload="true" />
       </feature>
     </config-file>
 

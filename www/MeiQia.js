@@ -1,6 +1,6 @@
 var MeiQia = function(){};
 
-MeiQia.prototype.init = function(completionCallback){
+MeiQia.prototype.init = function(completionCallback, failureCallback){
   cordova.exec(completionCallback, failureCallback, "MeiQia", "init", []);
 };
 
