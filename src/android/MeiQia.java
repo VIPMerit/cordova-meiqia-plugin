@@ -47,12 +47,12 @@ public class MeiQia extends CordovaPlugin{
                 });
             }
             if(action.equals("openChat")){
-                String customId = args.getString(0);
+                final String customId = args.getString(0);
                 cordova.getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         MQIntentBuilder mqb = new MQIntentBuilder(cordovaContext);
-
+                        mqb.setCustomizedId(customId);
                         Intent intent = mqb.build();
                         cordova.getActivity().startActivity(intent);
                     }
@@ -62,10 +62,10 @@ public class MeiQia extends CordovaPlugin{
                 MQManager mqManager = MQManager.getInstance(cordovaContext);
             }
             if(action.equals("closeChat")){
-               MQManager mqManager = MQManager.getInstance(cordovaContext);
+                MQManager mqManager = MQManager.getInstance(cordovaContext);
             }
             if(action.equals("setOffline")){
-               MQManager mqManager = MQManager.getInstance(cordovaContext);
+                MQManager mqManager = MQManager.getInstance(cordovaContext);
             }
         }
         catch (Exception e) {
