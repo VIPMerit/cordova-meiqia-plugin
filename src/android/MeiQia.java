@@ -55,17 +55,21 @@ public class MeiQia extends CordovaPlugin{
                         mqb.setCustomizedId(customId);
                         Intent intent = mqb.build();
                         cordova.getActivity().startActivity(intent);
+                        callbackContext.success();
                     }
                 });
             }
             if(action.equals("updateClientInfo")){
                 MQManager mqManager = MQManager.getInstance(cordovaContext);
+                 callbackContext.success();
             }
             if(action.equals("closeChat")){
                 MQManager mqManager = MQManager.getInstance(cordovaContext);
+                 callbackContext.success();
             }
             if(action.equals("setOffline")){
                 MQManager mqManager = MQManager.getInstance(cordovaContext);
+                callbackContext.success();
             }
         }
         catch (Exception e) {
