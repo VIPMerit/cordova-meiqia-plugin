@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.meiqia.core.MQManager;
 import com.meiqia.core.callback.OnInitCallback;
 import com.meiqia.meiqiasdk.util.MQConfig;
 import com.meiqia.meiqiasdk.util.MQIntentBuilder;
@@ -46,16 +47,19 @@ public class MeiQia extends CordovaPlugin{
                 });
             }
             if(action.equals("openChat")){
+                String customId = args.getString(0);
                 cordova.getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Intent intent = new MQIntentBuilder(cordovaContext).build();
+                        MQIntentBuilder mqb = new MQIntentBuilder(cordovaContext);
+
+                        Intent intent = mqb.build();
                         cordova.getActivity().startActivity(intent);
                     }
                 });
             }
             if(action.equals("updateClientInfo")){
-
+                MQManager mqManager = MQManager.getInstance(cordovaContext);
             }
             if(action.equals("closeChat")){}
             if(action.equals("setOffline")){}

@@ -5,7 +5,7 @@
   <license>Apache 2.0</license>
   <keywords>cordova,meiqia,phonegap</keywords>
   <js-module src="www/MeiQia.js" name="MeiQia">
-    <clobbers target="meiqia"/>
+    <clobbers target="MeiQia"/>
   </js-module>
   <platform name="android">
       <config-file target="AndroidManifest.xml" parent="/*">
