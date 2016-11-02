@@ -1,22 +1,53 @@
 var MeiQia = {};
 
-MeiQia.init = function(success, failure, appKey){
+var buildSuccess = function(callback){
+    callback = callbackOrNoop(callback);
+    return function(result){
+        callback(null, result);
+    }
+}
+
+var buildFailure = function(callback){
+    callback = callbackOrNoop(callback);
+    return function(error){
+        callback(error);
+    }
+}
+
+var callbackOrNoop = function(callback){
+    return callback ? callback : function(value) { console.log(value); }
+}
+
+MeiQia.init = function(appKey, callback){
+    var success = buildSuccess(callback);
+    var failure = buildFailure(callback);
+
     cordova.exec(success, failure, "MeiQia", "init", [appKey]);
 };
 
-MeiQia.showConversations = function(success, failure, customId, clientInfo ){
+MeiQia.showConversations = function(customId, clientInfo, callback){
+    var success = buildSuccess(callback);
+    var failure = buildFailure(callback);
+
     cordova.exec(success, failure, "MeiQia", "init", [ customId, clientInfo ]);
 };
 
-MeiQia.updateUserProperties = function(success, failure,  clientInfo ){
+MeiQia.updateClientInfo = function(clientInfo, callback){
+    var success = buildSuccess(callback);
+    var failure = buildFailure(callback);
+
     cordova.exec(success, failure, "MeiQia", "updateClientInfo", [ clientInfo ]);
 };
 
-MeiQia.closeChat = function(success, failure){
+MeiQia.closeChat = function(callback){
+    var success = buildSuccess(callback);
+    var failure = buildFailure(callback);
     cordova.exec(success, failure, "MeiQia", "closeChat", [ ]);
 };
 
-MeiQia.setOffline = function(success, failure ){
+MeiQia.setOffline = function(callback){
+    var success = buildSuccess(callback);
+    var failure = buildFailure(callback);
     cordova.exec(success, failure, "MeiQia", "setOffline", [ ]);
 };
 
