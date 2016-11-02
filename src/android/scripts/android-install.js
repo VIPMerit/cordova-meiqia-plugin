@@ -44,10 +44,14 @@ module.exports = function (context) {
     var gradleBuildFile = 'build.gradle'
     var gradleSeparator = '// -------------------- 以上三个库是必须依赖的 ----------------------------'
     var newrelicGradleConf = [
+    "",
+    "dependencies {",  
       "compile 'com.meiqia:meiqiasdk:3.3.5@aar'",
       "compile 'com.android.support:support-v4:23.1.1'",
       "compile 'com.squareup.okhttp3:okhttp:3.3.1'",
-      "compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'"
+      "compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'",
+    "}",
+    ""
     ].join("\n")
 
     if (['after_plugin_add', 'after_plugin_install'].indexOf(context.hook) === -1) {
