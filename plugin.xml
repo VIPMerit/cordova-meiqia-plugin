@@ -19,8 +19,8 @@
     <!-- <source-file src="src/MQChatViewController/*.m" />
     <source-file src="src/MQMessageForm/*.m" /> -->
 
-    <framework src="src/ios/MeiQiaSDK.framework" custom="true"/>
-    <framework src="libicucore.dylib" />
+    <!-- <framework src="src/ios/MeiQiaSDK.framework" custom="true"/> -->
+    <!-- <framework src="libicucore.dylib" /> -->
 
   </platform>
 
