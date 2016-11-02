@@ -41,47 +41,16 @@ module.exports = function (context) {
 
     var targetDir  = path.join(projectRoot, "platforms", "android", "src", packageName.replace(/\./g, path.sep));
     var androidProjectRoot = path.join(projectRoot, "platforms", "android");
-    var importLine = 'import com.newrelic.agent.android.NewRelic; // haishang-cordova injected'
-    var startupLine = 'NewRelic.withApplicationToken("AAa45cff1d2cd9dc38e02c8eaa3a3fbef6c040bb7a").start(this.getApplication()); // haishang-cordova injected'
-    var mainActivityFile = 'MainActivity.java'
     var gradleBuildFile = 'build.gradle'
-    var gradleSeparator = '// HAISHANG-CORDOVA-INJECT'
-    var newrelicGradleConf = "\n \
-    buildscript { \n\
-      repositories { \n\
-          mavenCentral() \n\
-      } \n\
-      dependencies { \n\
-          classpath 'com.newrelic.agent.android:agent-gradle-plugin:5.+' \n\
-      } \n\
-    } \n\
-    repositories { \n\
-        mavenCentral() \n\
-    } \n\
-    apply plugin: 'android' \n\
-    apply plugin: 'newrelic' \n\
-    dependencies { \n\
-        compile 'com.newrelic.agent.android:android-agent:5.+' \n\
-    } \n"
-
-    var importHook = "import org.apache.cordova.*;"
-    var onCreateHook = "super.onCreate(savedInstanceState);"
+    var gradleSeparator = '// -------------------- 以上三个库是必须依赖的 ----------------------------'
+    var newrelicGradleConf = [
+      "compile 'com.meiqia:meiqiasdk:3.3.5@aar'",
+      "compile 'com.android.support:support-v4:23.1.1'",
+      "compile 'com.squareup.okhttp3:okhttp:3.3.1'",
+      "compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'"
+    ].join("\n")
 
     if (['after_plugin_add', 'after_plugin_install'].indexOf(context.hook) === -1) {
-        // Remove MainActivity Hooks
-        fs.readFile(path.join(targetDir, mainActivityFile), 'utf8', function (err,data) {
-          if (err) {
-            return console.log(err);
-          }
-
-          var result = data.replace(importLine, '');
-          result = result.replace(startupLine, '');
-
-          fs.writeFile(path.join(targetDir, mainActivityFile), result, 'utf8', function (err) {
-            if (err) return console.log(err);
-          });
-        });
-
         // Remove Grandle Hooks
         var gradleLines = fs.readFileSync(path.join(androidProjectRoot, gradleBuildFile)).toString().split('\n');
         fs.truncateSync(path.join(androidProjectRoot, gradleBuildFile))
@@ -94,25 +63,7 @@ module.exports = function (context) {
               fs.appendFileSync(path.join(androidProjectRoot, gradleBuildFile), line.toString() + "\n");
             }
         });
-
-
     } else {
-
-        // Add MainActivity Hooks
-        fs.readFile(path.join(targetDir, mainActivityFile), 'utf8', function (err,data) {
-          if (err) {
-            return console.log(err);
-          }
-
-          var result = data.replace(importHook, importHook+"\n"+importLine);
-          var result = data.replace(importHook, importHook+"\n"+importLine);
-              result = result.replace(onCreateHook, onCreateHook+'\n        '+ startupLine);
-
-          fs.writeFile(path.join(targetDir, mainActivityFile), result, 'utf8', function (err) {
-            if (err) return console.log(err);
-          });
-        });
-
         // Add NewRelic Gradle Hooks
         fs.appendFileSync(path.join(androidProjectRoot, gradleBuildFile), gradleSeparator);
         fs.appendFileSync(path.join(androidProjectRoot, gradleBuildFile), newrelicGradleConf);
