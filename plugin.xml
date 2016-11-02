@@ -5,14 +5,13 @@
   <license>Apache 2.0</license>
   <keywords>cordova,meiqia,phonegap</keywords>
   <js-module src="www/MeiQia.js" name="MeiQia">
-    <clobbers target="call"/>
+    <clobbers target="meiqia"/>
   </js-module>
   <platform name="android">
-      <config-file target="res/xml/config.xml" parent="/*">
-          <feature name="MeiQia">
-              <param name="android-package" value="com.hackplan.meiqia.MeiQia"/>
-          </feature>
-      </config-file>
+      <hook type="after_plugin_add" src="src/android/scripts/android-install.js" />
+      <hook type="after_plugin_install" src="src/android/scripts/android-install.js" />
+      <hook type="before_plugin_rm" src="src/android/scripts/android-install.js" />
+      <hook type="before_plugin_uninstall" src="src/android/scripts/android-install.js" />
       <config-file target="AndroidManifest.xml" parent="/*">
           <uses-permission android:name="android.permission.INTERNET" />
           <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -21,24 +20,5 @@
           <uses-permission android:name="android.permission.RECORD_AUDIO" />
       </config-file>
       <source-file src="src/android/MeiQia.java" target-dir="src/com/hackplan/meiqia" />
-      <source-file src="src/android/libs/mechat_1.1.0.jar" target-dir="libs" />
   </platform>
-
-  <platform name="ios">
-    <config-file target="config.xml" parent="/*">
-      <feature name="MeiQia">
-        <param name="ios-package" value="CDVMC"/>
-      </feature>
-    </config-file>
-
-    <header-file src="src/ios/CDVMC.h" />
-    <source-file src="src/ios/CDVMC.m" />
-
-    <framework src="src/ios/MeiQiaSDK.framework" custom="true" />
-    <framework src="src/ios/MeiqiaUI.framework" custom="true" />
-
-    <resource-file src="src/ios/MQChatViewAsset.bundle" />
-
-  </platform>
-
 </plugin>
