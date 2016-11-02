@@ -21,9 +21,10 @@
 @implementation MeiQiaCordovaPlugin
 
 - (void)init:(CDVInvokedUrlCommand *)command {
-  NSLog(@"Works")
+  NSLog(@"Works");
 }
 
+@end
 //
 // - (void)init:(CDVInvokedUrlCommand *)command {
 //   [self.commandDelegate runInBackground:^{

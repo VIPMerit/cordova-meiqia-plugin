@@ -1,5 +1,5 @@
 #import <Cordova/CDV.h>
-#import <MeiqiaSDK/MeiqiaSDK.h>
+#import <MeiQiaSDK/MeiqiaSDK.h>
 
 @interface MeiQiaCordovaPlugin : CDVPlugin
 

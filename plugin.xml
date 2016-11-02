@@ -35,6 +35,7 @@
     <source-file src="src/ios/MeiQiaCordovaPlugin.m" />
 
     <framework src="src/ios/MeiQiaSDK.framework" custom="true"/>
+    <framework src="libicucore.dylib" />
 
   </platform>
 
