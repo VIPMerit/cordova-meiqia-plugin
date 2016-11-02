@@ -61,8 +61,12 @@ public class MeiQia extends CordovaPlugin{
             if(action.equals("updateClientInfo")){
                 MQManager mqManager = MQManager.getInstance(cordovaContext);
             }
-            if(action.equals("closeChat")){}
-            if(action.equals("setOffline")){}
+            if(action.equals("closeChat")){
+               MQManager mqManager = MQManager.getInstance(cordovaContext);
+            }
+            if(action.equals("setOffline")){
+               MQManager mqManager = MQManager.getInstance(cordovaContext);
+            }
         }
         catch (Exception e) {
             Log.e(LOG_TAG,"exception while perfroming action:"+action,e);
