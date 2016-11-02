@@ -8,10 +8,6 @@
     <clobbers target="meiqia"/>
   </js-module>
   <platform name="android">
-      <hook type="after_plugin_add" src="src/android/scripts/android-install.js" />
-      <hook type="after_plugin_install" src="src/android/scripts/android-install.js" />
-      <hook type="before_plugin_rm" src="src/android/scripts/android-install.js" />
-      <hook type="before_plugin_uninstall" src="src/android/scripts/android-install.js" />
       <config-file target="AndroidManifest.xml" parent="/*">
           <uses-permission android:name="android.permission.INTERNET" />
           <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -20,5 +16,10 @@
           <uses-permission android:name="android.permission.RECORD_AUDIO" />
       </config-file>
       <source-file src="src/android/MeiQia.java" target-dir="src/com/hackplan/meiqia" />
+      <framework src="src/android/MeiQia/build.gradle" custom="true" type="gradleReference" />
+      <feature name="MeiQia">
+        <param name="android-package" value="com.hackplan.meiqia"/>
+        <param name="onload" value="true" />
+    </feature>
   </platform>
 </plugin>

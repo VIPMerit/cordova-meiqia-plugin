@@ -1,7 +1,14 @@
 var MeiQia = function(){};
 
-MeiQia.prototype.meiQia = function(success, failure, realname, mobile){
-    cordova.exec(success, failure, "MeiQia", "meiQia", [realname, mobile]);
+
+// cordova.exec(success,failure,"MeiQia",functionName,argumentsArray);   
+
+MeiQia.prototype.init = function(success, failure, appKey){
+    cordova.exec(success, failure, "MeiQia", "init", appKey);
+};
+
+MeiQia.prototype.init = function(success, failure){
+    cordova.exec(success, failure, "MeiQia", "openChat");
 };
 
 //Plug in to Cordova
