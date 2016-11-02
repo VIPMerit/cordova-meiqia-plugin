@@ -15,7 +15,7 @@ var buildFailure = function(callback){
 }
 
 var callbackOrNoop = function(callback){
-    return callback ? callback : function(value) { console.log(value); }
+    return callback ? callback : function(err, val) { console.log(err, val); }
 }
 
 MeiQia.init = function(appKey, callback){
