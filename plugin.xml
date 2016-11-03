@@ -4,9 +4,13 @@
   <description>Plugin to use MeiQia with cordova apps.</description>
   <license>Apache 2.0</license>
   <keywords>cordova,meiqia,phonegap</keywords>
+
+  <dependency id="cordova-plugin-cocoapod-support"/>
+
   <js-module src="www/MeiQia.js" name="MeiQia">
     <clobbers target="MeiQia"/>
   </js-module>
+
   <platform name="ios">
     <config-file target="config.xml" parent="/*">
       <feature name="MeiQia">
@@ -14,14 +18,12 @@
       </feature>
     </config-file>
 
+    <pods-config ios-min-version="8.0" uses-frameworks="true"/>
+    <pod id="Meiqia" version="3.3.2" />
+
     <header-file src="src/ios/MeiQiaCordovaPlugin.h" />
     <source-file src="src/ios/MeiQiaCordovaPlugin.m" />
-    <!-- <source-file src="src/MQChatViewController/*.m" />
-    <source-file src="src/MQMessageForm/*.m" /> -->
-
-    <!-- <framework src="src/ios/MeiQiaSDK.framework" custom="true"/> -->
-    <!-- <framework src="libicucore.dylib" /> -->
-
+    <framework src="libicucore.dylib" />
   </platform>
 
 </plugin>
