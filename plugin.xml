@@ -16,8 +16,10 @@
 
     <header-file src="src/ios/MeiQiaCordovaPlugin.h" />
     <source-file src="src/ios/MeiQiaCordovaPlugin.m" />
-    <!-- <source-file src="src/MQChatViewController/*.m" />
-    <source-file src="src/MQMessageForm/*.m" /> -->
+
+    <!-- <resource-file src="src/ios/MQChatViewController" />
+    <resource-file src="src/ios/MeiqiaSDKViewInterface"/>
+    <resource-file src="src/ios/MQMessageForm"/> -->
 
     <framework src="src/ios/MeiQiaSDK.framework" custom="true"/>
     <framework src="libicucore.dylib" />
