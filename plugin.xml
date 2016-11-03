@@ -5,7 +5,7 @@
   <license>Apache 2.0</license>
   <keywords>cordova,meiqia,phonegap</keywords>
 
-  <dependency id="cordova-plugin-cocoapod-support"/>
+  <!-- <dependency id="cordova-plugin-cocoapod-support"/> -->
 
   <js-module src="www/MeiQia.js" name="MeiQia">
     <clobbers target="MeiQia"/>
@@ -18,11 +18,14 @@
       </feature>
     </config-file>
 
-    <pods-config ios-min-version="8.0" uses-frameworks="true"/>
-    <pod id="Meiqia" version="3.3.2" />
+    <!-- <pods-config ios-min-version="8.0" uses-frameworks="true"/> -->
+    <!-- <pod id="Meiqia" version="3.3.2" /> -->
 
     <header-file src="src/ios/MeiQiaCordovaPlugin.h" />
     <source-file src="src/ios/MeiQiaCordovaPlugin.m" />
+
+    <framework src="src/ios/MeiQiaSDK.framework" custom="true" />
+    <framework src="src/ios/MeiqiaUI.framework" custom="true" />
     <framework src="libicucore.dylib" />
   </platform>
 

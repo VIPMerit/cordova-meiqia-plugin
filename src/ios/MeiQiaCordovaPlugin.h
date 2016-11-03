@@ -1,6 +1,6 @@
 #import <Cordova/CDV.h>
 #import <MeiQiaSDK/MeiqiaSDK.h>
-#import "MQChatViewController/Config/MQChatViewManager.h"
+#import <MeiQiaUI/MQChatViewManager.h>
 
 @interface MeiQiaCordovaPlugin : CDVPlugin
 
