@@ -17,15 +17,31 @@
     <header-file src="src/ios/MeiQiaCordovaPlugin.h" />
     <source-file src="src/ios/MeiQiaCordovaPlugin.m" />
 
+    <!-- ideally these will be inject automatically from plugin.xml -->
     <!-- <resource-file src="src/ios/MQChatViewController" />
     <resource-file src="src/ios/MeiqiaSDKViewInterface"/>
     <resource-file src="src/ios/MQMessageForm"/> -->
 
     <framework src="src/ios/MeiQiaSDK.framework" custom="true"/>
     <framework src="libicucore.dylib" />
-
   </platform>
-
+  <platform name="android">
+      <config-file target="AndroidManifest.xml" parent="/*">
+          <uses-permission android:name="android.permission.INTERNET" />
+          <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+          <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+          <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+          <uses-permission android:name="android.permission.RECORD_AUDIO" />
+      </config-file>
+      <source-file src="src/android/MeiQia.java" target-dir="src/com/hackplan/meiqia" />
+      <framework src="src/android/MeiQia/build.gradle" custom="true" type="gradleReference" />
+      <config-file target="res/xml/config.xml" parent="/*">
+        <feature name="MeiQia">
+          <param name="android-package" value="com.hackplan.meiqia.MeiQia"/>
+          <param name="onload" value="true" />
+        </feature>
+      </config-file>
+  </platform>
 </plugin>
 
 <!--  -->
