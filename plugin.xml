@@ -28,15 +28,4 @@
 
 </plugin>
 
-<!-- <config-file target="*-Info.plist" parent="NSAppTransportSecurity">>
-  <dict>
-    <key>NSExceptionDomains</key>
-    <dict>
-      <key>s3.cn-north-1.amazonaws.com.cn</key>
-      <dict>
-        <key>NSExceptionRequiresForwardSecrecy</key>
-        <false/>
-      </dict>
-    </dict>
-  </dict>
-</config-file> -->
+<!--  -->
