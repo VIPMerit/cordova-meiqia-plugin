@@ -1,18 +1,4 @@
 var MeiQia = {};
-//
-// MeiQia.prototype.init = function(completionCallback, failureCallback){
-//   cordova.exec(completionCallback, failureCallback, "MeiQia", "init", []);
-// };
-//
-// MeiQia.prototype.version = function(completionCallback, failureCallback){
-//   cordova.exec(completionCallback, failureCallback, "MeiQia", "version", []);
-// };
-//
-// MeiQia.prototype.openChat = function(completionCallback, failureCallback){
-//   cordova.exec(completionCallback, failureCallback, "MeiQia", "openChat", []);
-// };
-//
-// module.exports = new MeiQia();
 
 var buildSuccess = function(callback){
     callback = callbackOrNoop(callback);
@@ -43,14 +29,13 @@ MeiQia.showConversations = function(customId, clientInfo, callback){
     var success = buildSuccess(callback);
     var failure = buildFailure(callback);
 
-    cordova.exec(success, failure, "MeiQia", "openChat", [ customId, clientInfo ]);
+    cordova.exec(success, failure, "MeiQia", "openChat", [ ]);
 };
 
 MeiQia.updateClientInfo = function(clientInfo, callback){
     var success = buildSuccess(callback);
     var failure = buildFailure(callback);
-
-    cordova.exec(success, failure, "MeiQia", "updateClientInfo", [ clientInfo ]);
+    cordova.exec(success, failure, "MeiQia", "updateClientInfo", [clientInfo]);
 };
 
 MeiQia.closeChat = function(callback){

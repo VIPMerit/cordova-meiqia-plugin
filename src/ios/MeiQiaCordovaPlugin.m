@@ -29,40 +29,47 @@
 }
 
 - (void)openChat:(CDVInvokedUrlCommand *)command {
-  self.command = command;
-  NSString *realname = command.arguments[0];
-  // NSString *mobile = command.arguments[1];
-
-  NSDictionary* userInfo =  @{
-    @"name"     : realname,
-    // @"tel"      : mobile,
-  };
   MQChatViewManager *chatViewManager = [[MQChatViewManager alloc] init];
-  [chatViewManager setClientInfo:userInfo];
-
-  [chatViewManager enableSyncServerMessage:false];
-
-  [chatViewManager.chatViewStyle setEnableOutgoingAvatar:false];
+  // [chatViewManager setLoginCustomizedId: customizedId];
+  // [chatViewManager enableSyncServerMessage:false];
   [chatViewManager.chatViewStyle setEnableRoundAvatar:YES];
-  [chatViewManager.chatViewStyle setNavBarTintColor:[UIColor whiteColor]];
-  [chatViewManager.chatViewStyle setNavTitleColor:[UIColor whiteColor]];
-  [chatViewManager.chatViewStyle setNavBarColor:[UIColor colorWithRed:0.941 green:0.353 blue:0.314 alpha:1.0]];
+  [chatViewManager.chatViewStyle setNavBarTintColor:[UIColor colorWithRed:238/255.0 green:195/255.0 blue:147/255.0 alpha:1.0]];
+  [chatViewManager.chatViewStyle setNavTitleColor:[UIColor colorWithRed:238/255.0 green:195/255.0 blue:147/255.0 alpha:1.0]];
+  [chatViewManager.chatViewStyle setNavBarColor:[UIColor colorWithRed:36/255.0 green:36/255.0 blue:36/255.0 alpha:1.0]];
   [chatViewManager.chatViewStyle setEnableOutgoingAvatar:YES];
-  [chatViewManager.chatViewStyle setStatusBarStyle: UIStatusBarStyleLightContent];
-
+  // [chatViewManager.chatViewStyle setStatusBarStyle: UIBarStyleBlackTranslucent];
+  [[UINavigationBar appearance] setTranslucent:NO];
   [chatViewManager pushMQChatViewControllerInViewController:self.viewController];
-
   // [chatViewManager setScheduleLogicWithRule:MQChatScheduleRulesRedirectEnterprise];
   // [chatViewManager setRecordMode:MQRecordModeDuckOther];
   // [chatViewManager setPlayMode:MQPlayModeMixWithOther];
-  // [[UINavigationBar appearance] setTranslucent:NO];
-
   [MQManager openMeiqiaService];
-
+  [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
 }
 
 - (void)updateClientInfo:(CDVInvokedUrlCommand *)command {
-  [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
+  NSArray* arguments = [command arguments];
+  NSDictionary* args = [arguments firstObject];
+  NSDictionary* clientCustomizedAttrs;
+  if([args objectForKey:@"spreeId"] != nil) {
+    clientCustomizedAttrs = @{
+      @"name": [args objectForKey:@"name"],
+      @"spreeId": [args objectForKey:@"spreeId"],
+      @"haishangId": [args objectForKey:@"haishangId"],
+      @"phone": [args objectForKey:@"phone"],
+    };
+  } else {
+    clientCustomizedAttrs = @{@"haishangId": [args objectForKey:@"haishangId"]};
+  }
+
+  [MQManager setClientInfo:clientCustomizedAttrs completion:^(BOOL success, NSError *error) {
+    if (success) {
+      CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+      [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    } else {
+      [self sendErrorToDelegate:@"Could not update client info"];
+    }
+  }];
 }
 
 - (void)closeChat:(CDVInvokedUrlCommand *)command {
