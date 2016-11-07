@@ -1,4 +1,4 @@
-package com.hackplan.meiqia;
+package com.vipmerit.meiqia;
 
 import org.apache.cordova.*;
 import org.apache.cordova.CordovaPlugin;
