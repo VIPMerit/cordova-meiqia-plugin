@@ -84,6 +84,7 @@ public class MeiQia extends CordovaPlugin{
             }
             if(action.equals("updateClientInfo")){
                 MQManager mqManager = MQManager.getInstance(cordovaContext);
+                JSONObject initArgs = new JSONObject(args.getString(0));
                 HashMap<String,String> clientInfo = buildClientInfo(initArgs);
                 mqManager.updateClientInfo(clientInfo, new OnClientInfoCallback(){
                     @Override
