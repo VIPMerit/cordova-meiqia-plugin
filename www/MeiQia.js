@@ -25,11 +25,11 @@ MeiQia.init = function(appKey, callback){
     cordova.exec(success, failure, "MeiQia", "init", [appKey]);
 };
 
-MeiQia.showConversations = function(customId, clientInfo, callback){
+MeiQia.showConversations = function(clientInfo, callback){
     var success = buildSuccess(callback);
     var failure = buildFailure(callback);
 
-    cordova.exec(success, failure, "MeiQia", "openChat", [ customId, clientInfo ]);
+    cordova.exec(success, failure, "MeiQia", "openChat", [ clientInfo ]);
 };
 
 MeiQia.updateClientInfo = function(clientInfo, callback){
@@ -45,11 +45,11 @@ MeiQia.closeChat = function(callback){
     cordova.exec(success, failure, "MeiQia", "closeChat", [ ]);
 };
 
-MeiQia.setOffline = function(callback){
-    var success = buildSuccess(callback);
-    var failure = buildFailure(callback);
-    cordova.exec(success, failure, "MeiQia", "setOffline", [ ]);
-};
+// MeiQia.setOffline = function(callback){
+//     var success = buildSuccess(callback);
+//     var failure = buildFailure(callback);
+//     cordova.exec(success, failure, "MeiQia", "setOffline", [ ]);
+// };
 
 //Plug in to Cordova
 cordova.addConstructor(function() {
