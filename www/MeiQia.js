@@ -45,11 +45,11 @@ MeiQia.closeChat = function(callback){
     cordova.exec(success, failure, "MeiQia", "closeChat", [ ]);
 };
 
-// MeiQia.setOffline = function(callback){
-//     var success = buildSuccess(callback);
-//     var failure = buildFailure(callback);
-//     cordova.exec(success, failure, "MeiQia", "setOffline", [ ]);
-// };
+MeiQia.setOffline = function(callback){
+    var success = buildSuccess(callback);
+    var failure = buildFailure(callback);
+    cordova.exec(success, failure, "MeiQia", "setOffline", [ ]);
+};
 
 //Plug in to Cordova
 cordova.addConstructor(function() {
