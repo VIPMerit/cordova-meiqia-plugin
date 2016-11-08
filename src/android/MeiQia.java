@@ -81,6 +81,7 @@ public class MeiQia extends CordovaPlugin{
                         callbackContext.success();
                     }
                 });
+                execute("updateClientInfo", args, callbackContext); // also trigger update
             }
             if(action.equals("updateClientInfo")){
                 MQManager mqManager = MQManager.getInstance(cordovaContext);
