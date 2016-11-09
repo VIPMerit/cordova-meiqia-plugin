@@ -24,3 +24,13 @@ var callback = functions(error, value){
   }
 }
 ```
+
+client info struct
+``` 
+haishangId: "84892eaa-2f60-47fb-b109-463fecbe1e7e",
+name: "someName",
+spreeId: "100",
+phone: "123456789"
+```
+
+with `haishangId` mandatory 

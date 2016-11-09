@@ -28,8 +28,7 @@ MeiQia.init = function(appKey, callback){
 MeiQia.showConversations = function(clientInfo, callback){
     var success = buildSuccess(callback);
     var failure = buildFailure(callback);
-    console.log(clientInfo);
-    cordova.exec(success, failure, "MeiQia", "openChat", [clientInfo]);
+    cordova.exec(success, failure, "MeiQia", "openChat", [ clientInfo ]);
 };
 
 MeiQia.updateClientInfo = function(clientInfo, callback){
