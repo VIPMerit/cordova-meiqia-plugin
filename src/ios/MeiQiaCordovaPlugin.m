@@ -63,9 +63,9 @@
         clientCustomizedAttrs = @{
                                   @"name": [args objectForKey:@"name"],
                                   @"spreeId": [args objectForKey:@"spreeId"],
-                                  @"haishangId": [args objectForKey:@"haishangId"],
+                                  @"gender": [args objectForKey:@"haishangId"],
                                   @"tel": [args objectForKey:@"tel"],
-                                  @"supportReferrer": [args objectForKey:@"supportReferrer"],
+                                  @"age": [args objectForKey:@"supportReferrer"],
                                   };
     } else {
         clientCustomizedAttrs = @{@"haishangId": [args objectForKey:@"haishangId"]};
