@@ -75,10 +75,20 @@
     [chatViewManager setClientInfo:clientCustomizedAttrs override:YES];
     [chatViewManager setLoginCustomizedId: customizedId];
     [chatViewManager setMessageLinkRegex:@"(haishang://[^\\s]*)"];
-    [chatViewManager.chatViewStyle setStatusBarStyle:UIStatusBarStyleLightContent];
-    [chatViewManager.chatViewStyle setNavBarTintColor:[UIColor colorWithRed:238/255.0 green:195/255.0 blue:147/255.0 alpha:1.0]];
-    [chatViewManager.chatViewStyle setNavTitleColor:[UIColor colorWithRed:238/255.0 green:195/255.0 blue:147/255.0 alpha:1.0]];
-    [chatViewManager.chatViewStyle setNavBarColor:[UIColor colorWithRed:36/255.0 green:36/255.0 blue:36/255.0 alpha:1.0]];
+
+    NSString *theme = [args objectForKey:@"theme"];
+    if ([theme isEqualToString:@"haishang"]) {
+      [chatViewManager.chatViewStyle setStatusBarStyle:UIStatusBarStyleLightContent];
+      [chatViewManager.chatViewStyle setNavBarTintColor:[UIColor colorWithRed:238/255.0 green:195/255.0 blue:147/255.0 alpha:1.0]];
+      [chatViewManager.chatViewStyle setNavTitleColor:[UIColor colorWithRed:238/255.0 green:195/255.0 blue:147/255.0 alpha:1.0]];
+      [chatViewManager.chatViewStyle setNavBarColor:[UIColor colorWithRed:36/255.0 green:36/255.0 blue:36/255.0 alpha:1.0]];
+    } else {
+      // [chatViewManager.chatViewStyle setStatusBarStyle:UIStatusBarStyleLightContent];
+      [chatViewManager.chatViewStyle setNavBarTintColor:[UIColor colorWithRed:36/255.0 green:36/255.0 blue:36/255.0 alpha:1.0]];
+      [chatViewManager.chatViewStyle setNavTitleColor:[UIColor colorWithRed:36/255.0 green:36/255.0 blue:36/255.0 alpha:1.0]];
+      [chatViewManager.chatViewStyle setNavBarColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0]];
+    }
+
     [chatViewManager.chatViewStyle setEnableRoundAvatar:YES];
     [chatViewManager.chatViewStyle setEnableOutgoingAvatar:YES];
     [[UINavigationBar appearance] setTranslucent:NO];
