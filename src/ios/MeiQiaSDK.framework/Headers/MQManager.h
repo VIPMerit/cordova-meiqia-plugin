@@ -15,7 +15,7 @@
 #import "MQPreChatData.h"
 
 
-#define MQSDKVersion @"3.3.2"
+#define MQSDKVersion @"3.3.4.1"
 
 @protocol MQManagerDelegate <NSObject>
 
@@ -35,6 +35,15 @@
 
 @class MQTicket;
 @interface MQManager : NSObject
+
+
+/// 注册状态观察者在状态改变的时候调用
+/// 注意不要使用 self, 该 block 会被 retain，使用 self 会导致调用的类无法被释放。
++ (void)addStateObserverWithBlock:(StateChangeBlock)block withKey:(NSString *)key;
+
++ (void)removeStateChangeObserverWithKey:(NSString *)key;
+
++ (MQState)getCurrentState;
 
 /**
  *  开启美洽服务
@@ -58,6 +67,11 @@
  * @warning 初始化前后均可调用
  */
 + (void)registerDeviceToken:(NSData *)deviceToken;
+
+/**
+ @param deviceToken 去掉特殊符号和空格之后的字符串
+ */
++ (void)registerDeviceTokenString:(NSString *)token;
 
 /**
  * 初始化SDK。美洽建议开发者在AppDelegate.m中的系统回调didFinishLaunchingWithOptions中进行SDK初始化。
@@ -484,11 +498,6 @@
  获取从指定日期开始的所有工单消息
  */
 + (void)getTicketsFromDate:(NSDate *)date complete:(void(^)(NSArray *, NSError *))action;
-
-/**
- 创建或者追加工单，如果此用户已经发过工单，并且工单没有结束，新消息会追加到工单上
- */
-+ (void)createOrAppendTicketWithMessage:(MQMessage *)message clientInfo:(NSDictionary *)info completion:(void(^)(MQTicket *ticket, NSError *))block;
 
 /**
  *  提交留言表单
