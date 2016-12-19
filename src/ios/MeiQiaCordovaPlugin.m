@@ -58,7 +58,7 @@
     NSArray* arguments = [command arguments];
     NSDictionary* args = [arguments firstObject];
     NSDictionary* clientCustomizedAttrs;
-    NSString *customizedId = [args objectForKey:@"haishangId"];
+    // NSString *customizedId = [args objectForKey:@"haishangId"];
     if([args objectForKey:@"spreeId"] != nil) {
         clientCustomizedAttrs = @{
                                   @"name": [args objectForKey:@"name"],
@@ -73,7 +73,7 @@
 
     MQChatViewManager *chatViewManager = [[MQChatViewManager alloc] init];
     [chatViewManager setClientInfo:clientCustomizedAttrs override:YES];
-    [chatViewManager setLoginCustomizedId: customizedId];
+    // [chatViewManager setLoginCustomizedId: customizedId];
     [chatViewManager setMessageLinkRegex:@"(haishang://[^\\s]*)"];
 
     NSString *theme = [args objectForKey:@"theme"];
